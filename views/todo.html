@@ -2,11 +2,32 @@
 <html>
 <head>
   <title> To Do </title>
+  <link href="/static/css/todo.css" rel="stylesheet">
 </head>
 <body>
 THIS IS THE HOME PAGE OF THE TODO APP
 
-<h1>Hello, {data.first_header:}!</h1>
+<h1>Hello, {data.first_header}!</h1>
+
+<h2>
+  Go to: 
+  <a href="http://localhost:8080/kanban">Kanban Board</a>
+  <a href="http://localhost:8080/backlog">Backlog</a>
+</h2>
+
+<!-- action = URL going to  -->
+<!-- GET carries request parameter appended in URL string -->
+<form method="GET" action="backlog"> 
+  <input type="text" value="0" name="length" />
+  <button type="submit">Give it now!</button>
+</form>
+
+<!--  POST carries request parameter in message body which makes it more secure way of transferring data from client to server -->
+<form method="POST" action="generate"> 
+  <input type="text" value="0" name="length" />
+  <button type="submit">Give it now!</button>
+</form>
+
 
 
 </body>

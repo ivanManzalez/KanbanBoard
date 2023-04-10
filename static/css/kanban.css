@@ -1,0 +1,16 @@
+
+.kanban{
+  display: flex;
+  justify-content: space-around;
+}
+
+.container_header{
+  height:70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todos button{
+  height: 50%;
+
+}
