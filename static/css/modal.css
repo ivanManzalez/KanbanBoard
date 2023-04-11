@@ -1,0 +1,106 @@
+/*
+
+Description 1:
+
+In this updated solution, 
+we use the position: fixed property on the modal-wrapper element 
+to make it stay in place even if the user scrolls the page. 
+We also set top, left, height, and width to 0 and 100% respectively 
+to cover the entire viewport.
+
+The modal element is positioned relative 
+to the modal-wrapper using position: relative. 
+We also add styles to make the form and buttons look nicer.
+
+The JavaScript code is mostly the same, 
+except for the addition of the AJAX code 
+to submit the form data to the server. 
+We use the $.post method to make a POST request 
+to the /addtask endpoint and pass in the form data using the serialize method. 
+The server response is handled in the callback function
+
+
+*/
+#hide_it{
+  display: none;
+}
+
+.modal-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  display: flex;
+}
+
+
+.modal {
+  width: 80%;
+  max-width: 600px;
+  background-color: white;
+  padding: 20px;
+  position: relative;
+}
+
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal input[type="text"] {
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+}
+
+.modal button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* move ? */
+
+#message {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #00ff00;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+}
+
+#message.success {
+  background-color: #00ff00;
+}
+
+#message.failed {
+  background-color: #ff0000;
+}
+
+
+

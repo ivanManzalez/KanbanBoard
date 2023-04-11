@@ -1,9 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title> To Do </title>
+  <title> To Do - Kanban </title>
+  <link href="/static/css/todo.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/static/js/getTodoList.js"></script>
+  <script src="/static/js/modal.js"></script>
 </head>
 <body>
+
 THIS IS WHERE THE KANBAN BOARD WILL LIVE
+
+<h2>
+  Go to: 
+  <a href="http://localhost:8080/">Home</a>
+  <a href="http://localhost:8080/backlog"> Backlog </a>
+</h2>
+
+<section class = 'kanban'>
+  <div id="message"></div>
+
+  <div class='container todos'>
+    <div class='border container_header'>
+      <h3> To Do </h3>
+        <button id="open-modal-btn"> + </button>
+      </form>
+    </div>
+
+    <!-- Modal  -->
+    <div id="hide_it">
+    <div class="modal-wrapper">
+      <div class="modal">
+        
+        <form id="submit_form" method="post" action="/add_task">
+          
+          <label for="task">Task:</label>
+          <input type="text" name="task" placeholder="Enter a task" required>
+          <label for="Description">Description:</label>
+          <input type="text" name="description" placeholder="Enter a description" required>
+          <button type="submit">Add Task</button>
+        </form>
+        
+        <button class="close-btn">Close</button>
+      </div>
+    </div>
+    </div>
+
+    <ul id='names-list' class='border'></ul>
+
+  </div>
+  
+  <div class='container in_prog'>
+    <h3 class='border container_header'> In Progress </h3>
+    <ul class='border'>
+      <li> task 1</li>
+      <li> task 2</li>
+      <li> task 3</li>
+    </ul>
+  </div>
+  
+  <div class='container completeds'>
+    <h3 class='border container_header'> Completed </h3>
+    <ul class='border'>
+      <li> task 1</li>
+      <li> task 2</li>
+      <li> task 3</li>
+    </ul>
+  </div>
+
+</section>
+
 </body>
 </html>
