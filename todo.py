@@ -45,14 +45,10 @@ class ToDo(object):
     
     @cherrypy.expose
     def add_task(self, task, description):
-        
-        print(f"Submitted task: {task}")
-        print(f"Submitted description: {description}")
-
         try:
             # code to add task to database
             success_message = "Task added successfully"
-            return json.dumps({'success': True, 'message': success_message})
+            return json.dumps({'success': False, 'message': success_message})
         
         except:
             error_message = "Failed to add task"

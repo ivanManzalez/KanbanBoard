@@ -17,12 +17,34 @@ $(document).ready(function() {
   $('#submit_form').submit(function(e) {
     e.preventDefault(); // Prevent page reload
     var formData = $(this).serialize(); // Get form data
-    // check if form data is blank
+    
     $.post('/add_task', formData, function(data) {
-      // Handle response from server
-      console.log(data);
-      addTask();
+      // Handle data response from server
+      var data = JSON.parse(data);
+      var msgDiv = $("#message");
+
+      if (data.success) {
+            // display success message to user
+            msgDiv.addClass("success");
+        } else {
+            // display error message to user
+            msgDiv.addClass("failed");
+        }
+      msgDiv.html(data.message);
+      msgDiv.css("display", "block");
+
+      // hide the message after 3 seconds
+      setTimeout(function() {
+        msgDiv.removeClass("success");
+        msgDiv.removeClass("failed");
+        msgDiv.html("");
+        msgDiv.css("display", "none");
+      }, 3000);
+
       // Refresh page or update task list
+      
+      // Clear the form fields
+    $('#submit_form')[0].reset();
     });
 
     // hide modal
@@ -32,22 +54,6 @@ $(document).ready(function() {
     // display success/failed message 
   });
 });
-
-function addTask() {
-    var taskName = $("#task-name").val();
-    var taskDescription = $("#task-description").val();
-
-    $.post("/add_task", { task_name: taskName, task_description: taskDescription }, function(response) {
-        if (response.success) {
-            // display success message to user
-            alert(response.message);
-        } else {
-            // display error message to user
-            alert(response.message);
-        }
-    });
-}
-
 
 
 
