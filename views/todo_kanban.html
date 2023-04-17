@@ -6,6 +6,15 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/static/js/getTodoList.js"></script>
   <script src="/static/js/modal.js"></script>
+  <!-- <script src="/static/js/dnd.js" defer></script> -->
+  <!-- done to ensure dnd.js loads after getTodoList.js -->
+  <script>
+      window.onload = function() {
+        var dndScript = document.createElement('script');
+        dndScript.src = '/static/js/dnd.js';
+        document.body.appendChild(dndScript);
+      }
+    </script>
 </head>
 <body>
 
@@ -46,29 +55,31 @@ THIS IS WHERE THE KANBAN BOARD WILL LIVE
     </div>
     </div>
 
-    <ul id='names-list' class='border'></ul>
+    <ul id='tasks-list' class='border dropbox'></ul>
+
 
   </div>
   
   <div class='container in_prog'>
     <h3 class='border container_header'> In Progress </h3>
-    <ul class='border'>
-      <li> task 1</li>
-      <li> task 2</li>
-      <li> task 3</li>
+    <ul class='border in_prog dropbox'>
+      <li class='task draggable' draggable='true'> task 1</li>
+      <li class='task draggable' draggable='true'> task 2</li>
+      <li class='task draggable' draggable='true'> task 3</li>
     </ul>
   </div>
   
-  <div class='container completeds'>
+  <div class='container'>
     <h3 class='border container_header'> Completed </h3>
-    <ul class='border'>
-      <li> task 1</li>
-      <li> task 2</li>
-      <li> task 3</li>
+    <ul class='border dones dropbox'>
+      <li class='task draggable' draggable='true'> task 1</li>
+      <li class='task draggable' draggable='true'> task 2</li>
+      <li class='task draggable' draggable='true'> task 3</li>
     </ul>
   </div>
 
 </section>
 
 </body>
+
 </html>

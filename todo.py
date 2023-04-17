@@ -40,8 +40,8 @@ class ToDo(object):
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def get_tasks(self):
-        names = ['Alice', 'Bob', 'Charlie', 'Daniel', 'Eric']
-        return {'names': names}
+        tasks = ['Alice', 'Bob', 'Charlie', 'Daniel', 'Eric', 'Freddy', 'Georgina']
+        return {'tasks': tasks}
     
     @cherrypy.expose
     def add_task(self, task, description):

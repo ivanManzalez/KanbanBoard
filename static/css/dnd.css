@@ -1,0 +1,16 @@
+/*
+CLASS NAME:
+
+draggable - draggable elements
+drop_bucket - 
+*/
+
+
+.draggable{
+  cursor:move;
+}
+
+.draggable.dragging{
+  opacity: 0.2;
+  background-color: red;
+}

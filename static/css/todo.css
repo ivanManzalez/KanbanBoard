@@ -1,9 +1,10 @@
 @import 'kanban.css';
 @import 'backlog.css';
 @import 'modal.css';
+@import 'dnd.css';
 
 html{
-  background-color: blue;
+  background-color: green;
   margin: 0;
   padding:0;
 }
@@ -19,4 +20,10 @@ html{
 .border{
   border: 1px black solid;
   border-radius: 10px;
+}
+
+li {
+  padding: 1rem;
+  border:1px solid black;
+  border-radius: 5px;
 }

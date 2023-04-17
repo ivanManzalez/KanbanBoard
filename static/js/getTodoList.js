@@ -1,12 +1,23 @@
 
 $(document).ready(function(){
+  console.log("getTodoList.js - begin");
+  
   $.getJSON('/get_tasks', function(data) {
-    var names = data.names;
-    var list = $('#names-list');
-
-    for (var i = 0; i < names.length; i++) {
-      var li = $('<li>').text(names[i]);
+    console.log("getTodoList.js - getJSON data function");
+    var tasks = data.tasks;
+    var list = $('#tasks-list');
+  
+    for (var i = 0; i < tasks.length; i++) {
+      var li = document.createElement('li');
+      li.className = 'task todo draggable';
+      li.draggable = true;
+      li.innerHTML = tasks[i];
+      li.id = i;
+      li.dataset.status = 'todo';
+      // console.log("getTodoList.js - JSON data ", i ,"added to DOM");
       list.append(li);
-            }
-        });
-      });
+    }
+  console.log("getTodoList.js - end");
+  });
+});
+
