@@ -3,27 +3,44 @@
 @import 'modal.css';
 @import 'dnd.css';
 
+*{
+  padding:0;
+  margin: 0;
+}
+
 html{
-  background-color: green;
+  background-color: blue;
   margin: 0;
   padding:0;
 }
 
-.container{
-  border: 1px red solid;
+ul{
+  display: flex;
+  flex-direction: column;
+}
+
+li {
+  list-style-type: none
+}
+
+h3{
+  width: 100%;
+}
+
+.col-container{
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.center{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 
 .border{
   border: 1px black solid;
   border-radius: 10px;
-}
-
-li {
-  padding: 1rem;
-  border:1px solid black;
-  border-radius: 5px;
 }

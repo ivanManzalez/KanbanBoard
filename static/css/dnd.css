@@ -12,5 +12,5 @@ drop_bucket -
 
 .draggable.dragging{
   opacity: 0.2;
-  background-color: red;
+  background-color: grey;
 }

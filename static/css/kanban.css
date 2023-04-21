@@ -1,16 +1,36 @@
 
-.kanban{
+#kanban{
   display: flex;
-  justify-content: space-around;
+  gap: 5px;
 }
 
 .container_header{
+  /*background-color: grey;*/
   height:70px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
 }
+
+.task{
+  padding: 1rem;
+  border:1px outset grey;
+  /*width: 100%;*/
+  border-radius: 5px;
+  text-align: left;
+}
+
+.todos{
+  background-color: #FFC0CB;
+}
+
 .todos button{
   height: 50%;
+  width: 30px;
+}
 
+.in_progs{
+  background-color: #ADD8E6;
+}
+
+.dones{
+  background-color: #CBC3E3;
 }

@@ -5,10 +5,12 @@
   <link href="/static/css/todo.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/static/js/getTodoList.js"></script>
+  <script src="/static/js/getInProgList.js"></script>
+  <script src="/static/js/getDoneList.js"></script>
   <script src="/static/js/modal.js"></script>
   <!-- <script src="/static/js/dnd.js" defer></script> -->
   <!-- done to ensure dnd.js loads after getTodoList.js -->
-  <script>
+  <script defer>
       window.onload = function() {
         var dndScript = document.createElement('script');
         dndScript.src = '/static/js/dnd.js';
@@ -26,13 +28,13 @@ THIS IS WHERE THE KANBAN BOARD WILL LIVE
   <a href="http://localhost:8080/backlog"> Backlog </a>
 </h2>
 
-<section class = 'kanban'>
+<section id = 'kanban' class='border'>
   <div id="message"></div>
 
-  <div class='container todos'>
-    <div class='border container_header'>
+  <div class='col-container todos'>
+    <div class='border center container_header'>
       <h3> To Do </h3>
-        <button id="open-modal-btn"> + </button>
+      <button id="open-modal-btn"> + </button>
       </form>
     </div>
 
@@ -55,27 +57,23 @@ THIS IS WHERE THE KANBAN BOARD WILL LIVE
     </div>
     </div>
 
-    <ul id='tasks-list' class='border dropbox'></ul>
+    <ul id='todo-list' class='border dropbox'>
 
 
   </div>
   
-  <div class='container in_prog'>
-    <h3 class='border container_header'> In Progress </h3>
-    <ul class='border in_prog dropbox'>
-      <li class='task draggable' draggable='true'> task 1</li>
-      <li class='task draggable' draggable='true'> task 2</li>
-      <li class='task draggable' draggable='true'> task 3</li>
-    </ul>
+  <div class='col-container in_progs'>
+    <div class='border center container_header'>
+      <h3> In Progress </h3>
+    </div>
+    <ul id='in_prog-list' class='border dropbox'></ul>
   </div>
   
-  <div class='container'>
-    <h3 class='border container_header'> Completed </h3>
-    <ul class='border dones dropbox'>
-      <li class='task draggable' draggable='true'> task 1</li>
-      <li class='task draggable' draggable='true'> task 2</li>
-      <li class='task draggable' draggable='true'> task 3</li>
-    </ul>
+  <div class='col-container dones'>
+    <div class='border center container_header'>
+      <h3> Completed </h3>
+    </div>
+    <ul id='done-list' class='border dropbox'>
   </div>
 
 </section>

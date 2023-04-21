@@ -84,7 +84,7 @@ function getTaskStatus(container){
       // console.log('todo bucket');
       return 'todo';
     }
-}
+}//cassandra ql
 
 console.log('dnd.js - end');
 });

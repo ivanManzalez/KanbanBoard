@@ -2,10 +2,10 @@
 $(document).ready(function(){
   console.log("getTodoList.js - begin");
   
-  $.getJSON('/get_tasks', function(data) {
+  $.getJSON('/get_todos', function(data) {
     console.log("getTodoList.js - getJSON data function");
     var tasks = data.tasks;
-    var list = $('#tasks-list');
+    var list = $('#todo-list');
   
     for (var i = 0; i < tasks.length; i++) {
       var li = document.createElement('li');

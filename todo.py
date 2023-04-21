@@ -37,10 +37,25 @@ class ToDo(object):
       return open('views/todo_backlog.html')
 
 # API Endpoints
+
+# get tasks w/ status = todo
     @cherrypy.expose
     @cherrypy.tools.json_out()
-    def get_tasks(self):
+    def get_todos(self):
         tasks = ['Alice', 'Bob', 'Charlie', 'Daniel', 'Eric', 'Freddy', 'Georgina']
+        return {'tasks': tasks}
+# get tasks w/ status = in progress   
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    def get_in_progs(self):
+        tasks = ['Heather', 'Igor', 'Joji', 'Kaleb', 'Liam', 'Mandeep', 'Nadia']
+        return {'tasks': tasks}
+
+# get tasks w/ status = in progress   
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    def get_dones(self):
+        tasks = ['Orwell', 'Patricia', 'Quincy', 'Reina', 'Stephen', 'Tomas', 'Vivian']
         return {'tasks': tasks}
     
     @cherrypy.expose
