@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
   console.log("getTodoList.js - begin");
   
@@ -11,11 +10,11 @@ $(document).ready(function(){
       var li = document.createElement('li');
       li.className = 'task todo draggable';
       li.draggable = true;
-      li.innerHTML = tasks[i];
+      li.innerHTML = tasks[i].title;
       li.id = i;
-      li.dataset.status = 'todo';
-      // console.log("getTodoList.js - JSON data ", i ,"added to DOM");
+      li.dataset.status = tasks[i].status;
       list.append(li);
+      // console.log("li == ",li)
     }
   console.log("getTodoList.js - end");
   });

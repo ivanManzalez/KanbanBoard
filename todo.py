@@ -42,20 +42,36 @@ class ToDo(object):
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def get_todos(self):
-        tasks = ['Alice', 'Bob', 'Charlie', 'Daniel', 'Eric', 'Freddy', 'Georgina']
+        tasks = [
+            {'title': 'API Call - GET DB Data', 'status': 'todo'},
+            {'title': 'Frontend - Advanced CSS Styling - Kanban', 'status': 'todo'},
+            {'title': 'Fullend - Backlog Screen', 'status': 'todo'},
+            {'title': 'API Call - Create New Task Modal', 'status': 'todo'},
+            {'title': 'Frontend - View Task Details', 'status': 'todo'},
+            {'title': 'Backend - Optimize delivery', 'status': 'todo'},
+        ]
         return {'tasks': tasks}
 # get tasks w/ status = in progress   
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def get_in_progs(self):
-        tasks = ['Heather', 'Igor', 'Joji', 'Kaleb', 'Liam', 'Mandeep', 'Nadia']
+        tasks = [
+            {'title': 'Backend - Create DB Schema', 'status': 'in_prog'},
+        ]
         return {'tasks': tasks}
-
-# get tasks w/ status = in progress   
+# get tasks w/ status = done
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def get_dones(self):
-        tasks = ['Orwell', 'Patricia', 'Quincy', 'Reina', 'Stephen', 'Tomas', 'Vivian']
+        tasks = [
+        {'title':'API call - To Do Tasks', 'status':'done'}, 
+        {'title':'API call - In Progress Tasks', 'status':'done'}, 
+        {'title':'API call - Done Tasks', 'status':'done'}, 
+        {'title':'Styling - Simple Task Buckets', 'status':'done'}, 
+        {'title':'HTML - Kanban Structure', 'status':'done'}, 
+        {'title':'Frontend - Drag&Drop Tasks', 'status':'done'}, 
+        {'title':'Frontend - Modal Popup', 'status':'done'}
+        ]
         return {'tasks': tasks}
     
     @cherrypy.expose

@@ -10,9 +10,9 @@ $(document).ready(function(){
       var li = document.createElement('li');
       li.className = 'task done draggable';
       li.draggable = true;
-      li.innerHTML = tasks[i];
+      li.innerHTML = tasks[i].title;
       li.id = i;
-      li.dataset.status = 'done';
+      li.dataset.status = tasks[i].status;
       // console.log("getInProgList.js - JSON data ", i ,"added to DOM");
       list.append(li);
     }
