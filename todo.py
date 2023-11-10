@@ -1,7 +1,7 @@
 import random
 import string
 import os, os.path
-from my_data import Data
+from test_tasks import Data
 import urllib.parse #to parse dynamic data in php
 import json 
 ####################################
