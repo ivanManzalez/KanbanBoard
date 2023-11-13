@@ -36,7 +36,7 @@ for i in range(10):
     print(row)
 
 for i in range(10):
-  tasks.update_taskid_field(task_id=i, col_name="urgency", new_value="not Urgent")
+  tasks.update_by_taskid(task_id=i, col_name="urgency", new_value="not Urgent")
 
 for i in range(10):
   rows = tasks.get_task_by_id(task_id=i)

@@ -56,7 +56,12 @@ class Database:
 
   # CREATE - ENTITY
   def insert_data(self, tablename, data_tuple):
-    insert_statement = f"INSERT INTO {tablename} VALUES {data_tuple}"
+    # insert_statement = f"INSERT INTO {tablename} VALUES {data_tuple}"
+    insert_statement = f"INSERT INTO {tablename} VALUES ("
+    formatted_data = [str(data) if data is not None else "NULL" for data in data_tuple]
+    insert_statement += ",".join(f"'{data}'" if data != "NULL" else data for data in formatted_data)
+    insert_statement += ")"
+    print("\n\nInsert:", insert_statement,"\n")
     self.cur.execute(insert_statement)
     return self.cur
 
@@ -93,6 +98,15 @@ class Database:
   
   # UPDATE - ENTITY FIELD
   def update_entity_field(self, tablename, field, new_value, condition):
+    if new_value is None:
+      data = "NULL"
+    elif isinstance(new_value, str):
+      data = new_value
+      new_value = f"'{new_value}'"
+    else:
+      data = new_value
+
     update_statement = f"UPDATE {tablename} SET {field} = {new_value} WHERE {condition}"
+    print("\n\n" + update_statement + "\n")
     self.cur.execute(update_statement)
     return self.cur

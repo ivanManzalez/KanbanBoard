@@ -9,12 +9,12 @@ class Singleton(type):
     return cls._instances[cls]
 
 class TasksTable(metaclass=Singleton):
+  # Initialize Database object
+  DB_PATH = "db/todo.sqlite"
 
-  def __init__(self):
-    # Initialize Database object
-    TABLENAME = "tasks"
-    DB_PATH = "db/todo.sqlite"
-    self.db = Database(DB_PATH)
+  def __init__(self, db_path = DB_PATH):
+    self.TABLENAME = "tasks"
+    self.db = Database(db_path)
     self.column_types = [
       "INTEGER PRIMARY KEY AUTOINCREMENT",# task_id
       "CURRENT_TIMESTAMP",                # creation_date
@@ -28,9 +28,9 @@ class TasksTable(metaclass=Singleton):
       "INTEGER NULL",                     # severity
       "INTEGER NULL",                     # priority
       "INTEGER NULL",                     # subtask_id
-      "REFERENCES tasks(task_id)",        # FOREIGN KEY (subtask_id)
+      # "REFERENCES tasks(task_id)",        # FOREIGN KEY (subtask_id)
       "INTEGER NULL",                     # supertask_id
-      "REFERENCES tasks(task_id)",        # FOREIGN KEY (supertask_id)
+      # "REFERENCES tasks(task_id)",        # FOREIGN KEY (supertask_id)
       ]
     self.column_names = [
       "task_id",                    # INTEGER PRIMARY KEY AUTOINCREMENT
@@ -45,33 +45,34 @@ class TasksTable(metaclass=Singleton):
       "severity",                   # INTEGER NULL
       "priority",                   # INTEGER NULL
       "subtask_id",                 # INTEGER NULL
-      "FOREIGN KEY (subtask_id)",   # REFERENCES tasks(task_id)
+      # "FOREIGN KEY (subtask_id)",   # REFERENCES tasks(task_id)
       "supertask_id",               # INTEGER NULL
-      "FOREIGN KEY (supertask_id)", # REFERENCES tasks(task_id)
+      # "FOREIGN KEY (supertask_id)", # REFERENCES tasks(task_id)
       ]
-    self.db.drop_table(tablename=TABLENAME)
-    self.db.create_table(tablename=TABLENAME, column_names= self.column_names, column_types= self.column_types)
+    self.db.drop_table(tablename=self.TABLENAME)
+    self.db.create_table(tablename=self.TABLENAME, column_names= self.column_names, column_types= self.column_types)
 
   # Create Task
   def create_task(self, title, description, urgency, importance, completion_date = None, status="To Do", task_type="Task", severity=None, priority=None, dependents=None, parents=None):
-    data_tuple = [(None, None, completion_date, title, description, status, task_type, urgency, importance, severity, priority, dependents, parents)]
-    return self.db.insert_data(self, tablename=TABLENAME, data_tuple=data_tuple)
+    data_tuple = (None, None, completion_date, title, description, status, task_type, urgency, importance, severity, priority, dependents, parents) #list of tuples for multi tasks
+    return self.db.insert_data(tablename=self.TABLENAME, data_tuple=data_tuple)
+    # return self.db.insert_manydata(tablename=self.TABLENAME, list_data_tuple=data_tuple)
 
   # Retrieve Task
   def get_task_by_id(self, task_id):
     condition = f"task_id = {task_id}"
-    return self.db.get_data_where(tablename=TABLENAME, condition=condition)
+    return self.db.get_data_where(tablename=self.TABLENAME, condition=condition)
 
   def get_task_by_status(self, status_type):
     condition = f"status = {status_type}"
-    return self.db.get_data_where(tablename=TABLENAME, condition=condition)
+    return self.db.get_data_where(tablename=self.TABLENAME, condition=condition)
 
   # Delete Task
   def delete_task_by_id(self, task_id):
     condition = f"task_id = {task_id}"
-    self.db.delete_entity_where(tablename=TABLENAME, condition=condition)
+    self.db.delete_entity_where(tablename=self.TABLENAME, condition=condition)
 
   # Update Task
-  def update_taskid_field(self, task_id, col_name, new_value):
+  def update_by_taskid(self, task_id, col_name, new_value):
     condition = condition = f"task_id = {task_id}"
-    return self.db.update_entity_field(tablename=TABLENAME, field=col_name, new_value=new_value, condition=condition)
+    return self.db.update_entity_field(tablename=self.TABLENAME, field=col_name, new_value=new_value, condition=condition)
