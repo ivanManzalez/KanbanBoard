@@ -8,7 +8,7 @@ class Singleton(type):
       cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
     return cls._instances[cls]
 
-class TasksTable(metaclass=Singleton):
+class TasksTable(): #metaclass=Singleton
   # Initialize Database object
   DB_PATH = "db/todo.sqlite"
 
@@ -34,7 +34,7 @@ class TasksTable(metaclass=Singleton):
       ]
     self.column_names = [
       "task_id",                    # INTEGER PRIMARY KEY AUTOINCREMENT
-      "creation_date",              # CURRENT_TIMESTAMP
+      "creation_datetime",              # CURRENT_TIMESTAMP
       "completion_date",            # DATE NULL
       "title",                      # VARCHAR(40)
       "description",                # VARCHAR(255)
@@ -49,30 +49,41 @@ class TasksTable(metaclass=Singleton):
       "supertask_id",               # INTEGER NULL
       # "FOREIGN KEY (supertask_id)", # REFERENCES tasks(task_id)
       ]
-    self.db.drop_table(tablename=self.TABLENAME)
+    # self.db.drop_table(tablename=self.TABLENAME)
     self.db.create_table(tablename=self.TABLENAME, column_names= self.column_names, column_types= self.column_types)
 
-  # Create Task
-  def create_task(self, title, description, urgency, importance, completion_date = None, status="To Do", task_type="Task", severity=None, priority=None, dependents=None, parents=None):
-    data_tuple = (None, None, completion_date, title, description, status, task_type, urgency, importance, severity, priority, dependents, parents) #list of tuples for multi tasks
+  # CREATE ################
+  def create_task(self, title, description, urgency, importance, creation_datetime, completion_date = None, status="To Do", task_type="Task", severity=None, priority=None, dependents=None, parents=None):
+    data_tuple = (None, creation_datetime(), completion_date, title, description, status, task_type, urgency, importance, severity, priority, dependents, parents) #list of tuples for multi tasks
+    print("\n",type(self).__name__, self.create_task.__name__)
     return self.db.insert_data(tablename=self.TABLENAME, data_tuple=data_tuple)
     # return self.db.insert_manydata(tablename=self.TABLENAME, list_data_tuple=data_tuple)
 
-  # Retrieve Task
+  # GET ###################
+  def get_all_tasks(self):
+    print("\n",type(self).__name__,self.get_all_tasks.__name__)
+    return self.db.get_all_data(tablename=self.TABLENAME)
+
   def get_task_by_id(self, task_id):
+    print("\n",type(self).__name__,self.get_task_by_id.__name__)
     condition = f"task_id = {task_id}"
     return self.db.get_data_where(tablename=self.TABLENAME, condition=condition)
 
   def get_task_by_status(self, status_type):
-    condition = f"status = {status_type}"
+    print("\n",type(self).__name__,self.get_task_by_status.__name__)
+    condition = f"status = '"+status_type+"'"
     return self.db.get_data_where(tablename=self.TABLENAME, condition=condition)
 
-  # Delete Task
+  # DELETE ##################
   def delete_task_by_id(self, task_id):
+    print("\n",type(self).__name__,self.delete_task_by_id.__name__)
     condition = f"task_id = {task_id}"
     self.db.delete_entity_where(tablename=self.TABLENAME, condition=condition)
 
-  # Update Task
+  # UPDATE ##################
   def update_by_taskid(self, task_id, col_name, new_value):
+    print("\n",type(self).__name__,self.update_by_taskid.__name__)
     condition = condition = f"task_id = {task_id}"
     return self.db.update_entity_field(tablename=self.TABLENAME, field=col_name, new_value=new_value, condition=condition)
+
+  

@@ -16,14 +16,19 @@
         dndScript.src = '/static/js/dnd.js';
         document.body.appendChild(dndScript);
       }
-    </script>
+  </script>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="module" defer>
+    import { handleAddTaskSubmission } from '../static/js/submitForm.js';
+  </script>
+
 </head>
 <body>
 
 THIS IS WHERE THE KANBAN BOARD WILL LIVE
 
 <h2>
-  Go to: 
   <a href="http://localhost:8080/">Home</a>
   <a href="http://localhost:8080/backlog"> Backlog </a>
 </h2>
@@ -42,17 +47,39 @@ THIS IS WHERE THE KANBAN BOARD WILL LIVE
     <div id="hide_it">
     <div class="modal-wrapper">
       <div class="modal">
-        
-        <form id="submit_form" method="post" action="/add_task">
+        <!-- onsubmit="handleAddTaskSubmission(event)" -->
+        <div class="header">
+          <button class="close-btn">Close</button>
+        </div>
+        <form id="submit_form" method="post" action="/add_task" > 
+          <label for="title">Title:</label>
+          <input type="text" name="title" placeholder="Enter title" required>
           
-          <label for="task">Task:</label>
-          <input type="text" name="task" placeholder="Enter a task" required>
-          <label for="Description">Description:</label>
+          <label for="description">Description:</label>
           <input type="text" name="description" placeholder="Enter a description" required>
-          <button type="submit">Add Task</button>
+          
+          <label for="urgency">Urgency:</label>
+            <select name="urgency" id="urgency" required>
+              <option value="Urgent">Urgent</option>
+              <option value="Not Urgent" selected>Not Urgent</option>
+            </select>
+
+          <label for="importance">Importance:</label>
+            <select name="importance" id="importance" required>
+              <option value="Important">Important</option>
+              <option value="Not Important" selected>Not Important</option>
+            </select>
+
+          <label for="status">Status:</label>
+            <select name="status" id="status" required>
+              <option value="Backlog" selected>Backlog</option>
+              <option value="To Do">To Do</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+  
+          <button type="submit" class="submit">Add New Task</button>
         </form>
-        
-        <button class="close-btn">Close</button>
       </div>
     </div>
     </div>

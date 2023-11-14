@@ -14,7 +14,6 @@ $(document).ready(function(){
       li.id = i;
       li.dataset.status = tasks[i].status;
       list.append(li);
-      // console.log("li == ",li)
     }
   console.log("getTodoList.js - end");
   });

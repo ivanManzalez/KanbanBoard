@@ -1,7 +1,8 @@
 import random
 import string
 import os, os.path
-from test_tasks import Data
+from data import Data
+from db.tasks.task import Task
 import urllib.parse #to parse dynamic data in php
 import json 
 ####################################
@@ -21,7 +22,7 @@ class ToDo(object):
         # define business logic here 
         # call business logic from external file
         return open('views/todo.html').read().format(
-            data= Data
+            data= Data()
             )
 
     @cherrypy.expose
@@ -38,51 +39,64 @@ class ToDo(object):
 
 # API Endpoints
 
-# get tasks w/ status = todo
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def get_todos(self):
-        tasks = [
-            {'title': 'API Call - GET DB Data', 'status': 'todo'},
-            {'title': 'Frontend - Advanced CSS Styling - Kanban', 'status': 'todo'},
-            {'title': 'Fullend - Backlog Screen', 'status': 'todo'},
-            {'title': 'API Call - Create New Task Modal', 'status': 'todo'},
-            {'title': 'Frontend - View Task Details', 'status': 'todo'},
-            {'title': 'Backend - Optimize delivery', 'status': 'todo'},
-        ]
+        data = Data()
+        tasks = data.get_tasks(task_status="To Do")
+        print("TODOs:",tasks)
         return {'tasks': tasks}
-# get tasks w/ status = in progress   
+
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def get_in_progs(self):
-        tasks = [
-            {'title': 'Backend - Create DB Schema', 'status': 'in_prog'},
-        ]
+        data = Data()
+        tasks = data.get_tasks(task_status="In Progress")
+        print("In Progress:",tasks)
         return {'tasks': tasks}
-# get tasks w/ status = done
+
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def get_dones(self):
-        tasks = [
-        {'title':'API call - To Do Tasks', 'status':'done'}, 
-        {'title':'API call - In Progress Tasks', 'status':'done'}, 
-        {'title':'API call - Done Tasks', 'status':'done'}, 
-        {'title':'Styling - Simple Task Buckets', 'status':'done'}, 
-        {'title':'HTML - Kanban Structure', 'status':'done'}, 
-        {'title':'Frontend - Drag&Drop Tasks', 'status':'done'}, 
-        {'title':'Frontend - Modal Popup', 'status':'done'}
-        ]
+        data = Data()
+        tasks = data.get_tasks(task_status="Completed")
+        print("Completed:",tasks)
+        return {'tasks': tasks}
+
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    def get_all(self):
+        data = Data()
+        tasks = data.get_all()
+        print("All Tasks:",tasks)
         return {'tasks': tasks}
     
     @cherrypy.expose
-    def add_task(self, task, description):
+    def add_task(self, title, description, urgency, importance, status):
         try:
-            # code to add task to database
+            data = Data()
+            task = {
+                "title"      :title, 
+                "description":description, 
+                "urgency"    :urgency, 
+                "importance" :importance, 
+                "status"     :status
+                }
+            created_task = data.create_new_task(task)
+            
+            if(created_task["status"] == 500):
+                error_message = f"Failed to add task: {created_task['error']}"
+                return json.dumps({'success': False, 'message': error_message, 'status':created_task["status"]})
+
+            print("********** CREATED TASK:",created_task)
             success_message = "Task added successfully"
-            return json.dumps({'success': False, 'message': success_message})
+
+            return json.dumps({'success': True, 'message': success_message, "task":created_task}) #'task':created_task
         
-        except:
-            error_message = "Failed to add task"
+        except Exception as e:
+            print("\n\nERROR\n\n")
+            error_message = json.dumps({'error': e})
+            cherrypy.response.status = 400  # Set the status code
             return json.dumps({'success': False, 'message': error_message})
 
 # CherryPy Tutorial
@@ -99,35 +113,13 @@ if __name__ == '__main__':
         '/': {
             'tools.sessions.on': True,
             'tools.staticdir.root': os.path.abspath(os.getcwd())
-        },
+            },
         '/static': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': './static'
+            }
         }
-    }
 
-####################################
     cherrypy.quickstart(ToDo(), '/', conf)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ####################################

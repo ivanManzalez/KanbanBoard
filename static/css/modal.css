@@ -50,6 +50,7 @@ The server response is handled in the callback function
 
 
 .modal form {
+  border: black;
   display: flex;
   flex-direction: column;
 }
@@ -62,6 +63,8 @@ The server response is handled in the callback function
 }
 
 .modal button[type="submit"] {
+  width:10%;
+  margin-top: 10px;
   background-color: #4CAF50;
   color: white;
   padding: 5px;
@@ -70,15 +73,23 @@ The server response is handled in the callback function
   cursor: pointer;
 }
 
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
+.header {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 10px;
 }
+.close-btn {
+  position: relative;
+  right: 20px;
+  background-color: red;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.0rem;
+  cursor: pointer;
+  box-shadow: 0 0 5px;
+}
+
+
 
 /* move ? */
 
@@ -101,6 +112,7 @@ The server response is handled in the callback function
 #message.failed {
   background-color: #ff0000;
 }
+
 
 
 

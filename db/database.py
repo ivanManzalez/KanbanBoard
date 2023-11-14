@@ -13,6 +13,7 @@ class Database:
   # SQL VERSION
   def get_sqlversion(self):
     cur.execute("SELECT sqlite_version()")
+    return self.cur.fetchone()[0]
 
   # CLOSE DB CONNECTION
   def close_db(self):
@@ -25,7 +26,7 @@ class Database:
 
   # COMMIT CHANGES TO DB
   def commit_db(self):
-    self.cur.commit()
+    self.db.commit()
 
   # DELETE - TABLE
   def drop_table(self, tablename):
@@ -35,6 +36,7 @@ class Database:
   # DELETE - ENTITY
   def delete_entity_where(self, tablename, condition):
     delete_statement = f"DELETE FROM {tablename} WHERE {condition}"
+    # print("\n\n"+delete_statement+"\n")
     self.cur.execute(delete_statement)
     return self.cur
 
@@ -50,8 +52,9 @@ class Database:
       create_statement += f"{col_name} {col_type},"
     
     create_statement = create_statement[:-1] + ")"
-    print("Create Statement:\n",create_statement)
+    # print("Create Statement:\n",create_statement)
     self.cur.execute(create_statement)
+    self.commit_db()
     return self.cur
 
   # CREATE - ENTITY
@@ -61,39 +64,46 @@ class Database:
     formatted_data = [str(data) if data is not None else "NULL" for data in data_tuple]
     insert_statement += ",".join(f"'{data}'" if data != "NULL" else data for data in formatted_data)
     insert_statement += ")"
-    print("\n\nInsert:", insert_statement,"\n")
+    # print("\n\nInsert:", insert_statement,"\n")
     self.cur.execute(insert_statement)
-    return self.cur
+    self.commit_db()
+    return self.cur.fetchone()
 
   # CREATE - ENTITIES
   def insert_manydata(self, tablename, list_data_tuple):
     placeholders = "(?" + ", ?" * (len(list_data_tuple[0]) - 1) + ")"
     insert_statement = f"INSERT INTO {tablename} VALUES {placeholders}"
     self.cur.executemany(insert_statement, list_data_tuple)
-    return self.cur
+    self.commit_db()
+    return self.cur.fetchall()
 
   # GET - COLUMNS
   def get_columns(self, tablename, column_names):
     select_statement = f"SELECT {', '.join(column_names)} FROM {tablename}"
     self.cur.execute(select_statement)
+    self.commit_db()
     return self.cur.fetchall()
 
   # GET - ALL COLUMNS
   def get_all_data(self, tablename):
     select_statement = f"SELECT * FROM {tablename}"
     self.cur.execute(select_statement)
+    self.commit_db()
     return self.cur.fetchall()
 
   # GET - ENTITY WHERE
   def get_data_where(self, tablename, condition):
     select_statement = f"SELECT * FROM {tablename} WHERE {condition}"
+    # print("\n\n"+select_statement+"\n")
     self.cur.execute(select_statement)
+    self.commit_db()
     return self.cur.fetchall()
 
   # GET - COLUMNS WHERE
   def get_columns(self, tablename, column_names, condition):
     select_statement = f"SELECT {', '.join(column_names)} FROM {tablename} WHERE {condition}"
     self.cur.execute(select_statement)
+    self.commit_db()
     return self.cur.fetchall()
   
   # UPDATE - ENTITY FIELD
@@ -107,6 +117,7 @@ class Database:
       data = new_value
 
     update_statement = f"UPDATE {tablename} SET {field} = {new_value} WHERE {condition}"
-    print("\n\n" + update_statement + "\n")
+    # print("\n\n" + update_statement + "\n")
     self.cur.execute(update_statement)
-    return self.cur
+    self.commit_db()
+    return self.cur.fetchout()
