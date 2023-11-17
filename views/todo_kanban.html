@@ -2,91 +2,70 @@
 <html>
 <head>
   <title> To Do - Kanban </title>
-  <link href="/static/css/todo.css" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="/static/js/getTodoList.js"></script>
-  <script src="/static/js/getInProgList.js"></script>
-  <script src="/static/js/getDoneList.js"></script>
-  <script src="/static/js/modal.js"></script>
-  <!-- <script src="/static/js/dnd.js" defer></script> -->
-  <!-- done to ensure dnd.js loads after getTodoList.js -->
-  <script defer>
-      window.onload = function() {
-        var dndScript = document.createElement('script');
-        dndScript.src = '/static/js/dnd.js';
-        document.body.appendChild(dndScript);
-      }
-  </script>
-  
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script type="module" defer>
-    import { handleAddTaskSubmission } from '../static/js/submitForm.js';
-  </script>
-
+  <link href="/static/css/todo.css" rel="stylesheet"> 
 </head>
 <body>
-
-THIS IS WHERE THE KANBAN BOARD WILL LIVE
 
 <h2>
   <a href="http://localhost:8080/">Home</a>
   <a href="http://localhost:8080/backlog"> Backlog </a>
 </h2>
 
-<section id = 'kanban' class='border'>
-  <div id="message"></div>
+<!-- Modal  -->
+  <div id="hide_it">
+  <div class="modal-wrapper">
+    <div class="modal">
+      <!-- onsubmit="handleAddTaskSubmission(event)" -->
+      <div class="header">
+        <button class="close-btn">Close</button>
+      </div>
+      <form id="submit_form" method="post" action="/add_task" > 
+        <input type="hidden" id="identifier" name="identifier" value="">
+        <label for="title">Title:</label>
+        <input id = "title" type="text" name="title" placeholder="Enter title" required>
+        
+        <label for="description">Description:</label>
+        <input id = "description" type="text" name="description" placeholder="Enter a description" required>
+        
+        <label for="urgency">Urgency:</label>
+          <select name="urgency" id="urgency" required>
+            <option value="Urgent">Urgent</option>
+            <option value="Not Urgent" selected>Not Urgent</option>
+          </select>
 
+        <label for="importance">Importance:</label>
+          <select name="importance" id="importance" required>
+            <option value="Important">Important</option>
+            <option value="Not Important" selected>Not Important</option>
+          </select>
+
+        <label for="status">Status:</label>
+          <select name="status" id="status" required>
+            <option value="Backlog" selected>Backlog</option>
+            <option value="To Do">To Do</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+
+      <button id="submit_new_task" type="submit" class="submit">Add New Task</button>
+      </form>
+      
+      <button id="delete-task-btn" type="button" class="delete">Delete Task</button>
+    </div>
+    <!-- Modal - END -->
+  </div>
+  <!-- Modal Wrapper - END -->
+  </div>
+
+<section  class=''>
+  <div id="message"></div>
+  <div id = 'kanban'>
   <div class='col-container todos'>
     <div class='border center container_header'>
       <h3> To Do </h3>
       <button id="open-modal-btn"> + </button>
-      </form>
     </div>
-
-    <!-- Modal  -->
-    <div id="hide_it">
-    <div class="modal-wrapper">
-      <div class="modal">
-        <!-- onsubmit="handleAddTaskSubmission(event)" -->
-        <div class="header">
-          <button class="close-btn">Close</button>
-        </div>
-        <form id="submit_form" method="post" action="/add_task" > 
-          <label for="title">Title:</label>
-          <input type="text" name="title" placeholder="Enter title" required>
-          
-          <label for="description">Description:</label>
-          <input type="text" name="description" placeholder="Enter a description" required>
-          
-          <label for="urgency">Urgency:</label>
-            <select name="urgency" id="urgency" required>
-              <option value="Urgent">Urgent</option>
-              <option value="Not Urgent" selected>Not Urgent</option>
-            </select>
-
-          <label for="importance">Importance:</label>
-            <select name="importance" id="importance" required>
-              <option value="Important">Important</option>
-              <option value="Not Important" selected>Not Important</option>
-            </select>
-
-          <label for="status">Status:</label>
-            <select name="status" id="status" required>
-              <option value="Backlog" selected>Backlog</option>
-              <option value="To Do">To Do</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Completed">Completed</option>
-            </select>
-  
-          <button type="submit" class="submit">Add New Task</button>
-        </form>
-      </div>
-    </div>
-    </div>
-
     <ul id='todo-list' class='border dropbox'>
-
-
   </div>
   
   <div class='col-container in_progs'>
@@ -102,8 +81,17 @@ THIS IS WHERE THE KANBAN BOARD WILL LIVE
     </div>
     <ul id='done-list' class='border dropbox'>
   </div>
-
+  </div>
 </section>
+<!-- JavaScript files -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/static/js/populateList.js"></script>
+<script src="/static/js/modal.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="module" defer>
+
+</script>
 
 </body>
 

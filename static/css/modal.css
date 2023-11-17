@@ -95,7 +95,8 @@ The server response is handled in the callback function
 
 #message {
   display: none;
-  position: fixed;
+
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;

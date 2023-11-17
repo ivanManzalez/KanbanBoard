@@ -10,9 +10,15 @@ $(document).ready(function(){
       var li = document.createElement('li');
       li.className = 'task todo draggable';
       li.draggable = true;
-      li.innerHTML = tasks[i].title;
-      li.id = i;
+      li.id = tasks[i].id;
       li.dataset.status = tasks[i].status;
+
+      var link = document.createElement('a');
+      link.href = '#' // Set the link destination
+      link.innerHTML = tasks[i].title;
+      
+      // console.log("getInProgList.js - JSON data ", i ,"added to DOM");
+      li.append(link);
       list.append(li);
     }
   console.log("getTodoList.js - end");

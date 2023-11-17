@@ -1,3 +1,7 @@
+// const second = 1000; //ms
+// const showMessage = 120*second; //ms
+// const refreshTime = 120*second; //ms
+
 $(document).ready(function() {
   // Open modal on button click
   $('#open-modal-btn').click(function() {
@@ -10,17 +14,28 @@ $(document).ready(function() {
     if (e.target == this || $(e.target).hasClass('close-btn')) {
       var hide = document.getElementById("hide_it");
       hide.style.display = "none";
+      $('#submit_new_task').text('Create New Task');
     }
   });
 
   // Submit form data using AJAX
-  $('#submit_form').submit(function(e) {
+  $(document).on('submit', '#submit_form', function (e) {
+  // $('#submit_form').on('click', '#submit_new_task', function (e) {
+  // $('#submit_form').submit(function(e) {
     e.preventDefault(); // Prevent page reload
-    var formData = $(this).serialize(); // Get form data
     
+    var identifierValue = $('#identifier').val();
+    if(identifierValue){
+      console.log(identifierValue, " Must not send create req")
+      return 
+    }
+
+    var formData = $(this).find(':input').not('[name="identifier"]').serialize(); // Get form data, excluding identifier
+      
     $.post('/add_task', formData, function(data) {
       // Handle data response from server
       var data = JSON.parse(data);
+      console.log(data)
       var msgDiv = $("#message");
 
       if (data.success) {
@@ -35,11 +50,13 @@ $(document).ready(function() {
 
       // hide the message after 3 seconds
       setTimeout(function() {
-        msgDiv.removeClass("success");
-        msgDiv.removeClass("failed");
-        msgDiv.html("");
-        msgDiv.css("display", "none");
-      }, 3000);
+      msgDiv.removeClass("success");
+      msgDiv.html("");
+      msgDiv.css("display", "none");
+      }, showMessage);
+      setTimeout(function() {
+      location.reload();
+      }, refreshTime);
 
       // Refresh page or update task list
       

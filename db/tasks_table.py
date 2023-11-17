@@ -81,9 +81,9 @@ class TasksTable(): #metaclass=Singleton
     self.db.delete_entity_where(tablename=self.TABLENAME, condition=condition)
 
   # UPDATE ##################
-  def update_by_taskid(self, task_id, col_name, new_value):
+  def update_by_taskid(self, task, task_id):
     print("\n",type(self).__name__,self.update_by_taskid.__name__)
     condition = condition = f"task_id = {task_id}"
-    return self.db.update_entity_field(tablename=self.TABLENAME, field=col_name, new_value=new_value, condition=condition)
+    return self.db.update_entity_fields(tablename=self.TABLENAME, entity_to_update=task, condition=condition)
 
   

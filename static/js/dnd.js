@@ -1,56 +1,70 @@
-
-$(document).ready(function(){
-console.log('dnd.js - begin');
+// Define draggables and dropboxes
 const draggables = document.querySelectorAll('.draggable');
 const dropboxes = document.querySelectorAll('.dropbox');
 
-console.log('dnd.js - draggables loaded');
-
-// draggable - Event listeners
-draggables.forEach(draggable => {
-  // console.log(draggable.id);
-  draggable.addEventListener('dragstart', () => {
-    // console.log('drag start')
+// Function to handle drag start
+function handleDragStart(draggable) {
+    // Adds a 'dragging' class to the draggable element
     draggable.classList.add('dragging');
+    // Gets the status of the draggable's parent element
     var newStatus = getTaskStatus(draggable.parentElement);
-    draggable.dataset.status=newStatus;
-    // li.dataset.status = 'todo';
-  })
+    // Updates the status in the dataset of the draggable
+    draggable.dataset.status = newStatus;
+}
 
-  draggable.addEventListener('dragend', () => {
-    console.log('drag end')
-    draggable.classList.remove('dragging')
+// Function to handle drag end
+function handleDragEnd(draggable) {
+    console.log('drag end');
+    // Removes the 'dragging' class from the draggable element
+    draggable.classList.remove('dragging');
+    // Gets the status of the draggable's parent element
     var newStatus = getTaskStatus(draggable.parentElement);
-    draggable.dataset.status=newStatus;
-    // draggable.classList.add(newStatus);
-  })
-})
+    // Updates the status in the dataset of the draggable
+    draggable.dataset.status = newStatus;
+}
 
-// dropboxes - Event listeners
+// Event listeners for draggables
+draggables.forEach(draggable => {
+    // Adds dragstart and dragend event listeners to each draggable element
+    draggable.addEventListener('dragstart', () => {
+        handleDragStart(draggable);
+    });
+
+    draggable.addEventListener('dragend', () => {
+        handleDragEnd(draggable);
+    });
+});
+
+// Event listener for dropboxes
 dropboxes.forEach(dropbox => {
-  
-  dropbox.addEventListener('dragover', e => {
-    // console.log('dragover')
-    // by default - dropping is disabled
-    e.preventDefault();
-    const afterElement = getDragAfterElement(dropbox, e.clientY)
-    // get currently dragging element
-    const draggable = document.querySelector('.dragging')
-    // console.log("draggable = ",draggable);
-    // console.log("afterElement = ", afterElement);
+    // Adds a dragover event listener to each dropbox element
+    dropbox.addEventListener('dragover', e => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(dropbox, e.clientY);
+        const draggable = document.querySelector('.dragging');
 
-    if (afterElement == null){
-    // append dragged element to end of dropbox
-    dropbox.appendChild(draggable)
-    }else{
-      dropbox.insertBefore(draggable, afterElement)
+        // Checks and handles the position of the dragged element within the dropbox
+        if (afterElement == null) {
+            dropbox.appendChild(draggable);
+        } else {
+            dropbox.insertBefore(draggable, afterElement);
+        }
+    });
+});
+
+// Function to determine the element's status
+function getTaskStatus(container) {
+    // Returns the status of the element based on its parent's class
+    if (container.classList.contains('in_prog')) {
+        return 'in_prog';
+    } else if (container.classList.contains('dones')) {
+        return 'done';
+    } else {
+        return 'todo';
     }
-  })
-})
+}
 
-//  determine which elems surround dragging in dropbox
-// determines mouse position while dragging and return
-// which ever elem our mouse position is directly after
+// Function to determine the element the mouse is directly after in the dropbox
 function getDragAfterElement(container, y){
   // determine all element in current container
   // that is not currently being dragged
@@ -71,24 +85,4 @@ function getDragAfterElement(container, y){
   },{offset:Number.NEGATIVE_INFINITY}).element
 }
 
-function getTaskStatus(container){
-  if (container.classList.contains('in_prog')){
-      // console.log('in progress bucket');
-      return 'in_prog';
-
-    }else if(container.classList.contains('dones')){
-      // console.log('dones bucket');
-      return 'done';
-    }
-    else{
-      // console.log('todo bucket');
-      return 'todo';
-    }
-}//cassandra ql
-
 console.log('dnd.js - end');
-});
-
-
-
-// 

@@ -18,13 +18,15 @@
   text-align: left;
 }
 
-.todos{
-  background-color: #FFC0CB;
-}
 
 .todos button{
   height: 50%;
   width: 10%;
+}
+
+
+.todos{
+  background-color: #FFC0CB;
 }
 
 .in_progs{

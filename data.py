@@ -68,3 +68,46 @@ class Data:
         "error":exp,
         "status":500,
         }
+    
+  def update_existing_task(self, task):
+    print("\n",type(self).__name__,self.update_existing_task.__name__)
+    try:
+      print("Update task:", task)
+      data = self.tasks.update_by_taskid(
+        task=task, 
+        task_id=task["task_id"],
+      )
+      return {
+          "message":"Task Updated",
+          "status":200,
+          "data":data
+        }
+
+    except Exception as exp:
+      return {
+        "message":"Error when updating task", 
+        "error":exp,
+        "status":500,
+        }
+
+  def delete_existing_task(self, task_id):
+    print("\n",type(self).__name__,self.delete_existing_task.__name__)
+    try:
+
+      data = self.tasks.delete_task_by_id(
+        task_id=task_id,
+      )
+      return {
+          "message":"Task deleted",
+          "status":200,
+          "data":data
+        }
+
+    except Exception as exp:
+      return {
+        "message":"Error when updating task", 
+        "error":exp,
+        "status":500,
+        }
+
+

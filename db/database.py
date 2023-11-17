@@ -36,9 +36,10 @@ class Database:
   # DELETE - ENTITY
   def delete_entity_where(self, tablename, condition):
     delete_statement = f"DELETE FROM {tablename} WHERE {condition}"
-    # print("\n\n"+delete_statement+"\n")
+    print("\nDELETE STATEMENT\n"+delete_statement+"\n")
     self.cur.execute(delete_statement)
-    return self.cur
+    self.commit_db()
+
 
   # CREATE - TABLE
   def create_table(self, tablename, column_names, column_types):
@@ -106,18 +107,10 @@ class Database:
     self.commit_db()
     return self.cur.fetchall()
   
-  # UPDATE - ENTITY FIELD
-  def update_entity_field(self, tablename, field, new_value, condition):
-    if new_value is None:
-      data = "NULL"
-    elif isinstance(new_value, str):
-      data = new_value
-      new_value = f"'{new_value}'"
-    else:
-      data = new_value
-
-    update_statement = f"UPDATE {tablename} SET {field} = {new_value} WHERE {condition}"
-    # print("\n\n" + update_statement + "\n")
+  def update_entity_fields(self, tablename, entity_to_update, condition):
+    update_values = ', '.join([f"{field} = '{value}'" if isinstance(value, str) else f"{field} = {value}" for field, value in entity_to_update.items()])
+    update_statement = f"UPDATE {tablename} SET {update_values} WHERE {condition}"
+    print("\nupdate_statement:\n",update_statement)
     self.cur.execute(update_statement)
     self.commit_db()
-    return self.cur.fetchout()
+    return self.cur.rowcount
