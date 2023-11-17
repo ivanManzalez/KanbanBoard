@@ -8,15 +8,18 @@ drop_bucket -
 
 .draggable{
   cursor:move;
+  transition: transform 0.1s ease-in-out;
 }
 
 .draggable.dragging{
   opacity: 0.2;
   background-color: grey;
+  transform: scale(1);
 }
 
 .dropbox{
   /*background-color: grey;*/
-  min-height: 50px;
+  /*min-height: 100px;*/
+  height: 100%;
 }
 

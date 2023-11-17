@@ -7,8 +7,8 @@
 <body>
 
 <h2>
-  <a href="http://localhost:8080/">Home</a>
-  <a href="http://localhost:8080/backlog"> Backlog </a>
+  <a href="http://localhost:8080/"> Project Board </a>
+  <!-- <a href="http://localhost:8080/backlog"> Backlog </a> -->
 </h2>
 
 <!-- Modal  -->
@@ -60,26 +60,26 @@
 <section  class=''>
   <div id="message"></div>
   <div id = 'kanban'>
-  <div class='col-container todos'>
-    <div class='border center container_header'>
+  <div class='col-container'>
+    <div class='border center container_header todos'>
       <h3> To Do </h3>
       <button id="open-modal-btn"> + </button>
     </div>
-    <ul id='todo-list' class='border dropbox'>
+    <ul id='todo-list' class='border dropbox todos'>
   </div>
   
-  <div class='col-container in_progs'>
-    <div class='border center container_header'>
+  <div class='col-container '>
+    <div class='border center container_header in_progs'>
       <h3> In Progress </h3>
     </div>
-    <ul id='in_prog-list' class='border dropbox'></ul>
+    <ul id='in_prog-list' class='border dropbox in_progs'></ul>
   </div>
   
-  <div class='col-container dones'>
-    <div class='border center container_header'>
+  <div class='col-container'>
+    <div class='border center container_header dones'>
       <h3> Completed </h3>
     </div>
-    <ul id='done-list' class='border dropbox'>
+    <ul id='done-list' class='border dropbox dones'>
   </div>
   </div>
 </section>

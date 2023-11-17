@@ -16,6 +16,28 @@ $(document).ready(function () {
         link.classList.add('task-link');
         return link;
     }
+    function createDescription(task) {
+        var description = document.createElement('p');
+        const maxLength = 50;
+        description.innerHTML = task.description.substring(0, maxLength) + (task.description.length > maxLength ? '...' : '');;
+        description.classList.add('task-desc');
+        return description;
+    }
+
+    function determineColor(endpoint){
+        if(endpoint =="/get_dones"){
+            return "metallic_done"
+
+        }else if(endpoint=="/get_todos"){
+            return "metallic_todo"
+
+        }else if(endpoint=="/get_in_progs"){
+            return "metallic_in_prog"
+
+        }else{
+            return ""
+        }
+    }
 
     function populateList(endpoint, className, listId) {
         console.log(endpoint + " - begin");
@@ -23,19 +45,21 @@ $(document).ready(function () {
         return new Promise((resolve, reject) => {
             $.getJSON(endpoint, function (data) {
                 console.log(endpoint + " - getJSON data function");
-
+                var color = determineColor(endpoint)
                 var tasks = data.tasks;
                 var list = $('#' + listId);
 
                 tasks.forEach(function (task) {
                     var li = document.createElement('li');
-                    li.className = 'task ' + className + ' draggable';
+                    li.className = color+ ' task ' + className + ' draggable border-silver';
                     li.draggable = true;
                     li.id = task.task_id;
                     li.dataset.status = task.status;
 
                     var link = createTaskLink(task);
+                    var desc = createDescription(task)
                     li.appendChild(link);
+                    li.appendChild(desc);
                     list.append(li);
                 });
 

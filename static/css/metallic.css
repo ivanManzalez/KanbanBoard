@@ -1,0 +1,33 @@
+/*
+
+--- CLASSNAMES ---
+.silver
+.gold
+.platinum
+
+*/
+
+.metallic_silver {
+  background:linear-gradient( to bottom, #bcc6cc, #eee, #bcc6cc);
+}
+.metallic_gold {
+  background:linear-gradient( to bottom, #c39738, #deb761, #c39738);
+  }
+.metallic_platinum {
+  background:linear-gradient( to bottom, #d5d7e5, #eee, #d5d7e5);
+}
+
+
+.metallic_done {
+  background:linear-gradient( to bottom, #4F7942, #50C878, #4F7942);
+  /*background-color: blue;*/
+  /*color: white;*/
+}
+
+.metallic_in_prog {
+  background:linear-gradient( to bottom, #CC7722, #FFBF00, #CC7722);
+}
+
+.metallic_todo {
+  background:linear-gradient( to bottom, #4682B4, #6F8FAF, #4682B4);
+}

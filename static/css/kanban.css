@@ -9,30 +9,47 @@
   height:70px;
   text-align: center;
 }
+/**********************/
 
 .task{
   padding: 1rem;
-  border:1px outset grey;
+  /*border:1px outset black;*/
   /*width: 100%;*/
+  margin:2px;
   border-radius: 5px;
   text-align: left;
+  box-shadow: 0 0 5px;
+  transition: transform 0.1s ease-in-out;
+}
+.task:hover {
+   transform: scale(1.01);
+}
+.task:active {
+   transform: scale(0.97);
 }
 
-
+.task a{
+  font-weight: bold;
+  color: white;
+}
+.task p{
+  font-size: 0.75rem;
+}
+/**********************/
 .todos button{
   height: 50%;
   width: 10%;
 }
 
-
+/* DROPBOX CONTAINERS */
 .todos{
-  background-color: #FFC0CB;
+  background-color: #166c96;/*#FFC0CB;*/
 }
 
 .in_progs{
-  background-color: #ADD8E6;
+  background-color: #C04000;/*#CC5500;*//*#ff9966;*//*#ADD8E6;*/ 
 }
 
 .dones{
-  background-color: #CBC3E3;
+  background-color: #228B22;/* #4F7942;*//*#CBC3E3;
 }

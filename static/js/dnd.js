@@ -7,9 +7,14 @@ function handleDragStart(draggable) {
     // Adds a 'dragging' class to the draggable element
     draggable.classList.add('dragging');
     // Gets the status of the draggable's parent element
-    var newStatus = getTaskStatus(draggable.parentElement);
-    // Updates the status in the dataset of the draggable
-    draggable.dataset.status = newStatus;
+    var currStatus = getTaskStatus(draggable.parentElement);
+    console.log(draggable.parentElement)
+    // Remove Bucket Color
+    var color = determineColor(currStatus)
+    console.log("Remove color:", color)
+    draggable.classList.remove(color);
+    draggable.classList.remove(currStatus);
+    console.log("Remove color:", color)
 }
 
 // Function to handle drag end
@@ -19,6 +24,12 @@ function handleDragEnd(draggable) {
     draggable.classList.remove('dragging');
     // Gets the status of the draggable's parent element
     var newStatus = getTaskStatus(draggable.parentElement);
+
+    // Add New Bucket Color
+    var newColor = determineColor(newStatus);
+    console.log("New color:", newColor)
+    draggable.classList.add(newColor);
+    draggable.classList.add(newStatus);
     // Updates the status in the dataset of the draggable
     draggable.dataset.status = newStatus;
 }
@@ -55,12 +66,14 @@ dropboxes.forEach(dropbox => {
 // Function to determine the element's status
 function getTaskStatus(container) {
     // Returns the status of the element based on its parent's class
-    if (container.classList.contains('in_prog')) {
+    if (container.classList.contains('in_progs')) {
         return 'in_prog';
     } else if (container.classList.contains('dones')) {
         return 'done';
-    } else {
+    } else if (container.classList.contains('todos')) {
         return 'todo';
+    }else {
+        return '';
     }
 }
 
@@ -83,6 +96,23 @@ function getDragAfterElement(container, y){
       return closest
     }
   },{offset:Number.NEGATIVE_INFINITY}).element
+}
+
+function determineColor(status){
+    console.log(status)
+    
+    if(status =="done"){
+        return "metallic_done"
+    }
+    else if(status=="todo"){
+        return "metallic_todo"
+    }
+    else if(status=="in_prog"){
+        return "metallic_in_prog"
+    }
+    else{
+        return ""
+    }
 }
 
 console.log('dnd.js - end');
