@@ -1,6 +1,8 @@
 import random
 import string
 import os, os.path
+
+from utils import clean_description 
 from data import Data
 from db.tasks.task import Task
 import urllib.parse #to parse dynamic data in php
@@ -121,7 +123,7 @@ class ToDo(object):
                 error_message = f"Failed to update task - {updated_task['error']}"
                 return json.dumps({'success': False, 'message': error_message, 'status':updated_task["status"]})
 
-            success_message = f"Task #{identifier} updated successfully"
+            success_message = f"{updated_task['data']} task(s) updated successfully"
 
             return json.dumps({'success': True, 'message': success_message, "task":updated_task["data"]})
         

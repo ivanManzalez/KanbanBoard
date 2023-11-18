@@ -56,8 +56,8 @@ class TasksTable(): #metaclass=Singleton
   def create_task(self, title, description, urgency, importance, creation_datetime, completion_date = None, status="To Do", task_type="Task", severity=None, priority=None, dependents=None, parents=None):
     data_tuple = (None, creation_datetime(), completion_date, title, description, status, task_type, urgency, importance, severity, priority, dependents, parents) #list of tuples for multi tasks
     print("\n",type(self).__name__, self.create_task.__name__)
-    return self.db.insert_data(tablename=self.TABLENAME, data_tuple=data_tuple)
-    # return self.db.insert_manydata(tablename=self.TABLENAME, list_data_tuple=data_tuple)
+    # return self.db.insert_data(tablename=self.TABLENAME, data_tuple=data_tuple)
+    return self.db.insert_manydata(tablename=self.TABLENAME, list_data_tuple=[data_tuple])
 
   # GET ###################
   def get_all_tasks(self):

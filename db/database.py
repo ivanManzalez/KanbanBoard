@@ -53,14 +53,14 @@ class Database:
       create_statement += f"{col_name} {col_type},"
     
     create_statement = create_statement[:-1] + ")"
-    # print("Create Statement:\n",create_statement)
+
+    print("Create Statement:\n",create_statement)
     self.cur.execute(create_statement)
     self.commit_db()
     return self.cur
  
   # CREATE - ENTITY
   def insert_data(self, tablename, data_tuple):
-    # insert_statement = f"INSERT INTO {tablename} VALUES {data_tuple}"
     insert_statement = f"INSERT INTO {tablename} VALUES ("
     formatted_data = [str(data) if data is not None else "NULL" for data in data_tuple]
     insert_statement += ",".join(f"'{data}'" if data != "NULL" else data for data in formatted_data)
@@ -76,7 +76,7 @@ class Database:
     insert_statement = f"INSERT INTO {tablename} VALUES {placeholders}"
     self.cur.executemany(insert_statement, list_data_tuple)
     self.commit_db()
-    return self.cur.fetchall()
+    return self.cur.lastrowid
 
   # GET - COLUMNS
   def get_columns(self, tablename, column_names):
@@ -107,10 +107,21 @@ class Database:
     self.commit_db()
     return self.cur.fetchall()
   
+  # def update_entity_fields(self, tablename, entity_to_update, condition):
+  #   update_values = ', '.join([f"{field} = '{value}'" if isinstance(value, str) else f"{field} = {value}" for field, value in entity_to_update.items()])
+  #   update_statement = f"UPDATE {tablename} SET {update_values} WHERE {condition}"
+  #   print("\nupdate_statement:\n",update_statement)
+  #   self.cur.execute(update_statement)
+  #   self.commit_db()
+  #   return self.cur.rowcount
+
   def update_entity_fields(self, tablename, entity_to_update, condition):
-    update_values = ', '.join([f"{field} = '{value}'" if isinstance(value, str) else f"{field} = {value}" for field, value in entity_to_update.items()])
+    update_values = ', '.join([f"{field} = ?" for field in entity_to_update])
     update_statement = f"UPDATE {tablename} SET {update_values} WHERE {condition}"
-    print("\nupdate_statement:\n",update_statement)
-    self.cur.execute(update_statement)
+    
+    # Get values to be updated
+    values_to_update = tuple(entity_to_update.values())
+    
+    self.cur.execute(update_statement, values_to_update)
     self.commit_db()
     return self.cur.rowcount
