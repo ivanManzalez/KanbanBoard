@@ -12,3 +12,9 @@ The Kanban Board is a personal project management tool designed to replicate the
 | **Task Management**        | Add, edit, and organize tasks. Set task priorities, and track progress. | In Progress |
 | **Sprint Planning**        | Monitor sprint progress and adapt as needed. | To Do |
 | **Reporting and Analytics** | Visualize project's performance with reporting and analytics to make informed decisions and improvements. | To Do |
+
+**Homepage** 
+![Project Logo](static/imgs/homepage.png)
+
+**Kanban Board** 
+![Project Logo](static/imgs/kanban.png)

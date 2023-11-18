@@ -7,7 +7,7 @@ class Data:
 
   def __init__(self):
     self.tasks = TasksTable()
-    self.user = "Ivan"
+    self.user = "Manzalez98"
 
   def __enter__(self):
     return self

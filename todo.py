@@ -2,7 +2,6 @@ import random
 import string
 import os, os.path
 
-from utils import clean_description 
 from data import Data
 from db.tasks.task import Task
 import urllib.parse #to parse dynamic data in php
