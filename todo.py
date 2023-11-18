@@ -91,8 +91,7 @@ class ToDo(object):
             if(created_task["status"] == 500):
                 error_message = f"Failed to add task - {created_task['error']}"
                 return json.dumps({'success': False, 'message': error_message, 'status':created_task["status"]})
-
-            success_message = "Task added successfully"
+            success_message = f"Task #{created_task['data']} added successfully"
 
             return json.dumps({'success': True, 'message': success_message, "task":created_task["data"]}) #'task':created_task
         
@@ -119,10 +118,10 @@ class ToDo(object):
             updated_task = data.update_existing_task(task)
             
             if(updated_task["status"] == 500):
-                error_message = f"Failed to add task - {updated_task['error']}"
+                error_message = f"Failed to update task - {updated_task['error']}"
                 return json.dumps({'success': False, 'message': error_message, 'status':updated_task["status"]})
 
-            success_message = "Task updated successfully"
+            success_message = f"Task #{identifier} updated successfully"
 
             return json.dumps({'success': True, 'message': success_message, "task":updated_task["data"]})
         
@@ -145,7 +144,7 @@ class ToDo(object):
                 error_message = f"Failed to add task: {deleted_task['error']}"
                 return json.dumps({'success': False, 'message': error_message, 'status':deleted_task["status"]})
 
-            success_message = "Task deleted successfully"
+            success_message = f"Task #{identifier} deleted successfully"
 
             return json.dumps({'success': True, 'message': success_message, "task":deleted_task}).encode('utf-8')
         

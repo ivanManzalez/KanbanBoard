@@ -51,5 +51,9 @@
 }
 
 .dones{
-  background-color: #228B22;/* #4F7942;*//*#CBC3E3;
+  background-color: #228B22;/* #4F7942;*//*#CBC3E3*/
+}
+
+.icon{
+  max-height: 40px;
 }

@@ -5,27 +5,40 @@
   <link href="/static/css/todo.css" rel="stylesheet"> 
 </head>
 <body>
+  <!-- ************************************************ -->
 
-<h2>
-  <a href="http://localhost:8080/"> Project Board </a>
-  <!-- <a href="http://localhost:8080/backlog"> Backlog </a> -->
-</h2>
+<nav>
+  <h2>
+    <a href="http://localhost:8080/"> Home </a>
+  </h2>
+  <h2>
+    <a href="http://localhost:8080/kanban">&lt;ProjectName&gt;</a>
+  </h2>  
+</nav>
+  <!-- ************************************************ -->
 
-<!-- Modal  -->
+
+  <!-- ************************************************ -->
+  <!-- Modal  -->
   <div id="hide_it">
   <div class="modal-wrapper">
-    <div class="modal">
-      <!-- onsubmit="handleAddTaskSubmission(event)" -->
+  <!-- ************************************************ -->
+    <div class="modal metallic_silver">
       <div class="header">
-        <button class="close-btn">Close</button>
+        <h2>Create New Task</h2>
+        <button class="close-btn hover_shadow">
+          <img id="close-btn-icon" src="../static/imgs/cancel.png">
+        </button>
       </div>
+  <!-- ************************************************ -->   
       <form id="submit_form" method="post" action="/add_task" > 
         <input type="hidden" id="identifier" name="identifier" value="">
         <label for="title">Title:</label>
         <input id = "title" type="text" name="title" placeholder="Enter title" required>
         
         <label for="description">Description:</label>
-        <input id = "description" type="text" name="description" placeholder="Enter a description" required>
+        <textarea id="description" name="description" rows="8" cols="40" required></textarea>
+        <!-- <input id = "description" type="text" name="description" placeholder="Enter a description" required> -->
         
         <label for="urgency">Urgency:</label>
           <select name="urgency" id="urgency" required>
@@ -46,44 +59,59 @@
             <option value="In Progress">In Progress</option>
             <option value="Completed">Completed</option>
           </select>
+      <div class="button_container">
+      <button id="submit_new_task" type="submit" class="submit hover_shadow">Add New Task</button>
+      <button id="delete-task-btn" type="del_button" class="delete hover_shadow">Delete</button>
+      </div>
 
-      <button id="submit_new_task" type="submit" class="submit">Add New Task</button>
       </form>
+  <!-- ************************************************ -->
       
-      <button id="delete-task-btn" type="button" class="delete">Delete Task</button>
+      
+  <!-- ************************************************ -->
     </div>
-    <!-- Modal - END -->
   </div>
-  <!-- Modal Wrapper - END -->
   </div>
 
 <section  class=''>
   <div id="message"></div>
   <div id = 'kanban'>
+  <!-- ************************************************ -->
+
   <div class='col-container'>
-    <div class='border center container_header todos'>
-      <h3> To Do </h3>
+    <div class=' center container_header todos'>
+      <h3 class="buddies">
+        <img class="icon" src="../static/imgs/todo.png"><p>To Do</p>
+      </h3>
       <button id="open-modal-btn"> + </button>
     </div>
-    <ul id='todo-list' class='border dropbox todos'>
+    <ul id='todo-list' class=' dropbox todos'>
   </div>
+  <!-- ************************************************ -->
   
   <div class='col-container '>
-    <div class='border center container_header in_progs'>
-      <h3> In Progress </h3>
+    <div class=' center container_header in_progs'>
+      <h3 class="buddies">
+        <img class="icon" src="../static/imgs/loading.png"><p>In Progress</p>
+      </h3>
     </div>
-    <ul id='in_prog-list' class='border dropbox in_progs'></ul>
+    <ul id='in_prog-list' class=' dropbox in_progs'></ul>
   </div>
-  
+  <!-- ************************************************ -->
   <div class='col-container'>
-    <div class='border center container_header dones'>
-      <h3> Completed </h3>
+    <div class=' center container_header dones'>
+      <h3 class="buddies">
+        <img class="icon" src="../static/imgs/done.png"><p>Completed</p>
+      </h3>
     </div>
-    <ul id='done-list' class='border dropbox dones'>
+    <ul id='done-list' class=' dropbox dones'>
   </div>
+  <!-- ************************************************ -->
+
   </div>
 </section>
 <!-- JavaScript files -->
+<!-- <script src="/static/js/getBackgroundURL.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/static/js/populateList.js"></script>
 <script src="/static/js/modal.js"></script>

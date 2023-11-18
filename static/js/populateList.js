@@ -1,6 +1,6 @@
 const second = 1000; //ms
-var showMessage = 120*second; //ms
-var refreshTime = 120*second; //ms
+var showMessage = 5*second; //ms
+var refreshTime = 5*second+1; //ms
 
 
 $(document).ready(function () {
@@ -73,6 +73,7 @@ $(document).ready(function () {
         event.preventDefault();
         console.log("Clicked task link");
         $('#submit_new_task').text('Update Task');
+        $('#delete-task-btn').show()
         $('#hide_it').show();
 
         // Populate form with data
@@ -140,6 +141,7 @@ $(document).ready(function () {
                 console.log(response);
                 // location.reload();
                 $('#hide_it').hide();
+                $('#delete-task-btn').hide()
                 $('#submit_form').attr('action', '/add_task');
                 $('#submit_form').attr('method', 'POST');
 
@@ -192,6 +194,7 @@ $(document).ready(function () {
             success: function (response) {
                 // location.reload();
                 $('#hide_it').hide();
+                $('#delete-task-btn').hide();
                 $('#submit_form').attr('action', '/add_task');
                 $('#submit_form').attr('method', 'POST');
 

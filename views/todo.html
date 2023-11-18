@@ -3,28 +3,35 @@
 <head>
   <title> To Do </title>
   <link href="/static/css/todo.css" rel="stylesheet">
+  <!-- <script src="/static/js/getBackgroundURL.js"></script> -->
 </head>
 <body>
 
-<h1>Welcome back, {data.user}!</h1>
+<nav>
+  <h2>
+    <a href="http://localhost:8080/kanban">Kanban Board</a>
+  </h2>
+  <h2>
+    <a href="http://localhost:8080/backlog">Backlog</a>
+  </h2>  
+</nav>
 
-<h2>
-  <a href="http://localhost:8080/kanban">Kanban Board</a>
-  <a href="http://localhost:8080/backlog">Backlog</a>
-</h2>
+<div class="hero slide-up">
+  <h1 class="welcome">Welcome back, {data.user}!</h1>
+</div>
 
 <!-- action = URL going to  -->
 <!-- GET carries request parameter appended in URL string -->
-<form method="GET" action="backlog"> 
+<!-- <form method="GET" action="backlog"> 
   <input type="text" value="0" name="length" />
   <button type="submit">Give it now!</button>
-</form>
+</form> -->
 
 <!--  POST carries request parameter in message body which makes it more secure way of transferring data from client to server -->
-<form method="POST" action="generate"> 
+<!-- <form method="POST" action="generate"> 
   <input type="text" value="0" name="length" />
   <button type="submit">Give it now!</button>
-</form>
+</form> -->
 
 
 

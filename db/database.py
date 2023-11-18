@@ -57,7 +57,7 @@ class Database:
     self.cur.execute(create_statement)
     self.commit_db()
     return self.cur
-
+ 
   # CREATE - ENTITY
   def insert_data(self, tablename, data_tuple):
     # insert_statement = f"INSERT INTO {tablename} VALUES {data_tuple}"
@@ -68,7 +68,7 @@ class Database:
     # print("\n\nInsert:", insert_statement,"\n")
     self.cur.execute(insert_statement)
     self.commit_db()
-    return self.cur.fetchone()
+    return self.cur.lastrowid
 
   # CREATE - ENTITIES
   def insert_manydata(self, tablename, list_data_tuple):

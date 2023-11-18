@@ -1,6 +1,4 @@
-// const second = 1000; //ms
-// const showMessage = 120*second; //ms
-// const refreshTime = 120*second; //ms
+
 
 $(document).ready(function() {
   // Open modal on button click
@@ -11,10 +9,14 @@ $(document).ready(function() {
 
   // Close modal on click outside or on close button
   $('.modal-wrapper').click(function(e) {
-    if (e.target == this || $(e.target).hasClass('close-btn')) {
+    if (e.target == this || $(e.target).hasClass('close-btn') || e.target== $('#close-btn-icon')[0]) {
       var hide = document.getElementById("hide_it");
       hide.style.display = "none";
       $('#submit_new_task').text('Create New Task');
+      $('#delete-task-btn').hide()
+      $('#submit_form').attr('action', '/add_task');
+      $('#submit_form').attr('method', 'POST');
+      $('#submit_form')[0].reset();
     }
   });
 

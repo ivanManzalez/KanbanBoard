@@ -1,0 +1,40 @@
+nav{
+  /*background-color: yellow;*/
+  width: 50%;
+  justify-content: space-around;
+  display: flex;
+}
+
+.hero{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  min-height: 250px;
+  width: 100%;
+
+  position: relative;
+  opacity: 0; /* Hide initially */
+  transition: opacity 0.5s ease-in-out;
+
+}
+
+.slide-up {
+  animation: slideUp 1s ease-in-out forwards; /* Apply the slide-up animation */
+
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(150%); /* Start from bottom */
+    opacity: 0;
+  }
+  to {
+
+    transform: translateY(50%); /* Move to the top */
+    opacity: 1;
+  }
+}
+.welcome{
+  font-size: 4.5em;
+}

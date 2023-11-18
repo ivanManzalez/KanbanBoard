@@ -41,9 +41,10 @@ The server response is handled in the callback function
 
 
 .modal {
+  border-radius: 5px;
   width: 80%;
   max-width: 600px;
-  background-color: white;
+  /*background-color: #166c96;*/
   padding: 20px;
   position: relative;
 }
@@ -63,7 +64,8 @@ The server response is handled in the callback function
 }
 
 .modal button[type="submit"] {
-  width:10%;
+  min-width: 30px;
+  max-width:20%;
   margin-top: 10px;
   background-color: #4CAF50;
   color: white;
@@ -72,26 +74,67 @@ The server response is handled in the callback function
   border-radius: 5px;
   cursor: pointer;
 }
+.modal button[type="submit"]:hover {
+  background-color: #50C878;
+}
+.modal button[type="submit"]:active {
+  background-color: #228B22;
+  transform: scale(0.98);
+}
+
+.modal button[type="del_button"] {
+  min-width: 30px;
+  max-width:20%;
+  margin-top: 10px;
+  color: white;
+  padding: 5px;
+  border: none;
+  background-color: red;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
 .header {
-    display: flex;
-    flex-direction: row-reverse;
-    padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
 }
 .close-btn {
   position: relative;
   right: 20px;
-  background-color: red;
   border: none;
   border-radius: 5px;
   font-size: 1.0rem;
   cursor: pointer;
-  box-shadow: 0 0 5px;
+  padding: 3px;
+  max-width: 30px;
+  max-height: 30px;
+  transition: transform 0.1s;
+  background-color: transparent;
+}
+
+.close-btn:active{
+  background-color: grey;
 }
 
 
+.hover_shadow:hover{
+  box-shadow: 0 0 5px;
+}
 
-/* move ? */
+.close-btn img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#delete-task-btn{
+  display: none;
+}
+
+
+/**************************************************/
 
 #message {
   display: none;
@@ -114,6 +157,9 @@ The server response is handled in the callback function
   background-color: #ff0000;
 }
 
+.clickable{
+  
+}
 
 
 
